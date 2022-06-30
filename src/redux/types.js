@@ -1,0 +1,1 @@
+export const MOVE_MENU = "location_menu"
