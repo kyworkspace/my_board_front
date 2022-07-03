@@ -5,6 +5,7 @@ import { RoutePath } from "config/Enums";
 import BoardList from "component/board/BoardList";
 import BoardDetail from "component/board/BoardDetail";
 import BoardUpload from "component/board/BoardUpload";
+import Page from "component/board/Page/Page";
 
 export const BoardContext = createContext({
   selectedBoardItem: null,
@@ -17,10 +18,6 @@ function Board() {
 
   const [selectedBoardItem, setselectedBoardItem] = useState();
 
-  useEffect(() => {
-    console.log(location);
-  }, []);
-
   const value = {
     selectedBoardItem,
     setselectedBoardItem,
@@ -30,13 +27,19 @@ function Board() {
     <BoardContext.Provider value={value}>
       {location.pathname ===
       `/${RoutePath.BOARD_MAIN}/${RoutePath.BOARD.LIST}` ? (
-        <BoardList />
+        <Page title="게시판 목록">
+          <BoardList />
+        </Page>
       ) : location.pathname ===
         `/${RoutePath.BOARD_MAIN}/${RoutePath.BOARD.DETAIL}` ? (
-        <BoardDetail />
+        <Page title={"상세보기"}>
+          <BoardDetail />
+        </Page>
       ) : location.pathname ===
         `/${RoutePath.BOARD_MAIN}/${RoutePath.BOARD.UPLOAD}` ? (
-        <BoardUpload />
+        <Page title={"게시물 저장"}>
+          <BoardUpload />
+        </Page>
       ) : null}
     </BoardContext.Provider>
   );

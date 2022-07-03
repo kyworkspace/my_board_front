@@ -7,18 +7,13 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { locationMenu } from "redux/actions/menu_action";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 20px;
-  overflow-y: auto;
-  height: calc(100vh - 64px - 15px);
-`;
+import Page from "component/board/Page/Page";
 
 function Main() {
   const user = window.sessionStorage.getItem("user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (user) {
       navigate(`/${RoutePath.BOARD_MAIN}/${RoutePath.BOARD.LIST}`);
@@ -43,9 +38,7 @@ function Main() {
           <SideMenu />
         </Sider>
         <Content style={{ height: "93vh" }}>
-          <Container>
-            <Outlet />
-          </Container>
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

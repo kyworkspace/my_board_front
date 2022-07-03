@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
 import { BoardContext } from "routes/Board";
-import { useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { RoutePath } from "config/Enums";
+import styled from "styled-components";
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -25,6 +26,15 @@ const data = Array.from({
   image: true ? "https://picsum.photos/300/200" : "pic",
 }));
 
+const EditBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 30px;
+  padding-top: 30px;
+`;
+
 function BoardList() {
   const navigate = useNavigate();
 
@@ -36,9 +46,18 @@ function BoardList() {
 
   const { setselectedBoardItem } = useContext(BoardContext);
 
+  const onMoveToUpload = (e) => {
+    e.preventDefault();
+    navigate(`/${RoutePath.BOARD_MAIN}/${RoutePath.BOARD.UPLOAD}`);
+  };
+
   return (
     <>
-      <Typography.Title level={2}>게시판 목록</Typography.Title>
+      <EditBar>
+        <Button type="primary" onClick={onMoveToUpload}>
+          업로드
+        </Button>
+      </EditBar>
       <List
         itemLayout="vertical"
         size="large"
