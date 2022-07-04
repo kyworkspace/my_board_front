@@ -1,6 +1,21 @@
 import axios from 'axios';
 
-const getBoardList = (board) => {
+const getBoardList = async (body) => {
+
+    const { pageNumber = 1, pageSize = 10 } = body
+
+    return await axios.get(`http://localhost:8080/board/list?pageNumber=${pageNumber}&pageSize=${pageSize}`).then(res => {
+        if (res.data.success === "true") {
+            return res;
+        } else {
+            throw new Error(res.data.message);
+        }
+    })
+        .catch(err => {
+            console.log(err);
+            window.alert("호출 에러")
+        })
+
 
 }
 
